@@ -686,15 +686,15 @@ class SFTPClient(BaseSFTP, ClosingContextManager):
         .. versionadded:: 1.10
         """
         with self.open(remotepath, 'rb') as fr:
-            file_size = self.stat(remotepath).st_size
-            fr.prefetch()
+            #file_size = self.stat(remotepath).st_size
+            #fr.prefetch()
             size = 0
             while True:
                 data = fr.read(32768)
                 fl.write(data)
                 size += len(data)
-                if callback is not None:
-                    callback(size, file_size)
+                #if callback is not None:
+                #    callback(size, file_size)
                 if len(data) == 0:
                     break
         return size
@@ -715,7 +715,7 @@ class SFTPClient(BaseSFTP, ClosingContextManager):
         .. versionchanged:: 1.7.4
             Added the ``callback`` param
         """
-        file_size = self.stat(remotepath).st_size
+        #file_size = self.stat(remotepath).st_size
         with open(localpath, 'wb') as fl:
             size = self.getfo(remotepath, fl, callback)
         s = os.stat(localpath)
